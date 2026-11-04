@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.env
+.env.*
+!.env.example
+.agents/
+.aws/
+.codex/
+# Keep manuscript sources local; publish only the website and selected assets.
+WACV_2027__Food_Dataset_Paper__Copy_for_Talal_Camera_Ready.pdf
+WACV_2027__Food_Dataset_Paper__Copy_for_Talal____Camera_Ready/
