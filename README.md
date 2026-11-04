@@ -10,6 +10,16 @@ This repository contains code used for the FoodClaim Dataset.
 6. [prompt_description_generation.json](image_generation/qwen_scripts/prompt_description_generation.json): Defines prompts for image descriptions.
 7. [prompt_manipulation_instruction_generation.json](image_generation/qwen_scripts/prompt_manipulation_instruction_generation.json): Defines prompts for manipulation instructions.
 
+## FLUX scripts
+
+1. [flux1_image_generation.py](image_generation/flux_scripts/flux1_image_generation.py): Generates food images from CSV descriptions using FLUX.1-dev or FLUX.1-schnell.
+2. [flux2_klein_image_generation.py](image_generation/flux_scripts/flux2_klein_image_generation.py): Generates food images from CSV descriptions using FLUX.2-klein models.
+3. [flux2_klein_image_manipulation.py](image_generation/flux_scripts/flux2_klein_image_manipulation.py): Edits source food images using FLUX.2-klein and manipulation instructions from a CSV.
+
+## Qwen image scripts
+
+1. [qwen_image_edit_manipulation.py](image_generation/qwen_image_scripts/qwen_image_edit_manipulation.py): Edits source food images using Qwen-Image-Edit-2511 and manipulation instructions from a CSV.
+
 ## Related repositories
 
 The code used for training the models is available in the [fake-food-detection-training repository](https://github.com/ahmadjaved97/fake-food-detection-training).
