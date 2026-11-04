@@ -22,6 +22,10 @@ The code for FLUX.2-dev image generation and manipulation is available in the [f
 
 1. [qwen_image_edit_manipulation.py](image_generation/qwen_image_scripts/qwen_image_edit_manipulation.py): Edits source food images using Qwen-Image-Edit-2511 and manipulation instructions from a CSV.
 
+## OpenRouter scripts
+
+1. [open_router_image_generation.py](image_generation/open_router_scripts/open_router_image_generation.py): Generates or edits food images from CSV prompts through OpenRouter, with generation, editing, and automatic mode selection.
+
 ## Related repositories
 
 The code used for training the models is available in the [fake-food-detection-training repository](https://github.com/ahmadjaved97/fake-food-detection-training).
