@@ -26,6 +26,10 @@ The code for FLUX.2-dev image generation and manipulation is available in the [f
 
 1. [open_router_image_generation.py](image_generation/open_router_scripts/open_router_image_generation.py): Generates or edits food images from CSV prompts through OpenRouter, with generation, editing, and automatic mode selection.
 
+## Survey manipulation list
+
+1. [manipulation_list.json](survey_manipulation_list/manipulation_list.json): Contains survey manipulation instructions grouped by food type and manipulation category. These instructions were later modified to create the manipulation instructions used for image editing.
+
 ## Related repositories
 
 The code used for training the models is available in the [fake-food-detection-training repository](https://github.com/ahmadjaved97/fake-food-detection-training).
