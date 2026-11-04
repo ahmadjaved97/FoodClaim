@@ -16,6 +16,8 @@ This repository contains code used for the FoodClaim Dataset.
 2. [flux2_klein_image_generation.py](image_generation/flux_scripts/flux2_klein_image_generation.py): Generates food images from CSV descriptions using FLUX.2-klein models.
 3. [flux2_klein_image_manipulation.py](image_generation/flux_scripts/flux2_klein_image_manipulation.py): Edits source food images using FLUX.2-klein and manipulation instructions from a CSV.
 
+The code for FLUX.2-dev image generation and manipulation is available in the [flux2-distributed-inference repository](https://github.com/ahmadjaved97/flux2-distributed-inference).
+
 ## Qwen image scripts
 
 1. [qwen_image_edit_manipulation.py](image_generation/qwen_image_scripts/qwen_image_edit_manipulation.py): Edits source food images using Qwen-Image-Edit-2511 and manipulation instructions from a CSV.
