@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FoodClaim: a WACV 2027 benchmark of 220,066 images for detecting generated and manipulated food defects.">
+  <meta name="theme-color" content="#21654c">
+  <title>FoodClaim · WACV 2027</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#overview">Skip to content</a>
+  <header class="site-header">
+    <nav class="container navigation" aria-label="Main navigation">
+      <a class="wordmark" href="#">FoodClaim</a>
+      <div class="nav-links"><a href="#overview">Abstract</a><a href="#pipeline">Pipeline</a><a href="#statistics">Statistics</a><a href="#examples">Examples</a><a href="#generators">Generators</a><a href="#baselines">Baselines</a><a href="#citation">Citation</a></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" aria-labelledby="paper-title">
+      <p class="conference">Accepted at WACV 2027 · Datasets Track</p>
+      <h1 id="paper-title"><span>FoodClaim:</span> A Benchmark for Detecting Generated and Manipulated Food Defects</h1>
+      <ul class="authors" aria-label="Authors and affiliations">
+        <li><a href="https://ahmadjaved97.github.io/">Ahmad Javed</a><sup aria-label="Affiliation 1">1</sup></li>
+        <li><a href="https://talalwasim.github.io/">Syed Talal Wasim</a><sup aria-label="Affiliations 1 and 2">1,2</sup></li>
+        <li><a href="https://scholar.google.com/citations?user=-BhbqVcAAAAJ">Hamid Suleman</a><sup aria-label="Affiliations 1 and 2">1,2</sup></li>
+        <li><a href="https://pages.iai.uni-bonn.de/gall_juergen/">Juergen Gall</a><sup aria-label="Affiliations 1 and 2">1,2</sup></li>
+      </ul>
+      <p class="affiliation"><span><sup>1</sup> <a href="https://www.uni-bonn.de/en">University of Bonn</a></span><span><sup>2</sup> Lamarr Institute for Machine Learning and Artificial Intelligence</span></p>
+      <div class="resources" aria-label="Research resources">
+        <div class="resource"><span>Paper</span><span class="coming-soon">Coming soon</span></div>
+        <a class="resource" href="https://huggingface.co/datasets/ahmadjaved97/FoodClaim"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" width="24" height="24" alt="" aria-hidden="true"><span>Hugging Face Dataset</span></a>
+        <a class="resource" href="https://github.com/ahmadjaved97/FoodClaim">Code · GitHub</a>
+      </div>
+    </section>
+
+<section class="section container abstract-section" id="overview" aria-labelledby="overview-title">
+      <h2 id="overview-title">Abstract</h2>
+      <p class="abstract-text">Generative image models make it easy to fabricate photographic evidence, and food delivery platforms already receive refund claims backed by generated or edited images of spoiled or damaged meals. Detecting such images differs from standard synthetic image detection: a deceptive complaint image is often an authentic photograph with a small edited region, and the question is not only how the image was produced but whether the depicted defect is real. We introduce FoodClaim, a benchmark of 220,066 images across 13 food categories and five classes that separates image authenticity (authentic, generated, or manipulated) from food condition (defect-free or defective). Every generated and manipulated image is derived from a specific authentic photograph with a shared description, defect instruction, and generator family; defects follow a plausibility-rated taxonomy of 78 food-defect combinations, and seven of the 12 generator configurations, including closed commercial models, are held out from training. Across 14 pretrained backbones, a synthetic image detection baseline, and vision-language models, the best detector falls from 88.2% accuracy on seen generators to 63.8% on held-out ones, and frequency-domain inputs do not close the gap. FoodClaim will be publicly released with all descriptions, defect instructions, and source-image lineage.</p>
+    </section>
+
+    <section class="section container pipeline-section" id="pipeline" aria-labelledby="pipeline-title">
+      <div class="section-heading"><h2 id="pipeline-title">Dataset Construction</h2></div>
+      <figure class="example-figure ">
+          <a class="figure-link" href="assets/pipeline.webp" aria-label="View larger: FoodClaim construction pipeline"><img src="assets/pipeline.webp" width="4200" height="1403" alt="Five-stage pipeline: source datasets, data cleaning, structured description generation, image generation and editing, and the final five-class dataset." loading="lazy" decoding="async"></a>
+          <figcaption><strong>FoodClaim construction pipeline.</strong> Authentic photographs from five food-recognition datasets and a separately collected authentic-defective set are consolidated into 13 categories, deduplicated with DINOv2, filtered for visible people, and manually reviewed. Qwen3.5-27B produces structured descriptions. Text-to-image models generate clean and defective variants; image-editing models apply the same defect instruction to the source photograph. Together with the authentic classes, these form the five-class dataset.</figcaption>
+        </figure>
+      <h3>Matched-image construction</h3>
+      <figure class="example-figure">
+          <a class="figure-link" href="assets/construction.webp" aria-label="View larger: Matched construction"><img src="assets/construction.webp" width="3000" height="1156" alt="An authentic ramen photograph is linked to generated, generated-defective, and manipulated-defective variants through a shared text description and defect instruction." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Construction of FoodClaim.</strong> Each authentic photograph is paired with generated, generated-defective, and manipulated-defective images sharing its description, defect instruction, and generator family. Authentic-defective photographs are collected separately.</figcaption>
+        </figure>
+    </section>
+
+    <section class="section container dataset-statistics" id="statistics" aria-labelledby="statistics-title">
+      <div class="section-heading"><h2 id="statistics-title">Dataset Statistics</h2><p><strong>164,614</strong> training images<br><strong>55,452</strong> test images</p></div>
+      <p class="section-intro">FoodClaim contains 220,066 images across 13 food categories and five classes: authentic (Auth), authentic-defective (Auth-Def), generated (Gen), generated-defective (Gen-Def), and manipulated-defective (Manip-Def).</p>
+      <div class="table-scroll" role="region" aria-label="Total images by food category" tabindex="0"><table class="category-table"><caption>Category totals across all five classes</caption><thead><tr><th scope="col">Food category</th><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Total images</th></tr></thead><tbody><tr><th scope="row">Biryani</th><td>19,790</td><td>6,186</td><td><strong>25,976</strong></td></tr>
+<tr><th scope="row">Pizza</th><td>23,237</td><td>7,585</td><td><strong>30,822</strong></td></tr>
+<tr><th scope="row">Burger</th><td>4,009</td><td>1,249</td><td><strong>5,258</strong></td></tr>
+<tr><th scope="row">French Fries</th><td>4,118</td><td>1,243</td><td><strong>5,361</strong></td></tr>
+<tr><th scope="row">Fried Chicken</th><td>12,228</td><td>3,658</td><td><strong>15,886</strong></td></tr>
+<tr><th scope="row">Sandwich</th><td>33,433</td><td>9,273</td><td><strong>42,706</strong></td></tr>
+<tr><th scope="row">Noodles</th><td>9,300</td><td>2,893</td><td><strong>12,193</strong></td></tr>
+<tr><th scope="row">Sushi</th><td>11,874</td><td>8,898</td><td><strong>20,772</strong></td></tr>
+<tr><th scope="row">Dosa</th><td>20,365</td><td>6,771</td><td><strong>27,136</strong></td></tr>
+<tr><th scope="row">Dumplings</th><td>6,530</td><td>1,784</td><td><strong>8,314</strong></td></tr>
+<tr><th scope="row">Kebab</th><td>10,209</td><td>3,389</td><td><strong>13,598</strong></td></tr>
+<tr><th scope="row">Salad</th><td>5,126</td><td>1,258</td><td><strong>6,384</strong></td></tr>
+<tr><th scope="row">Tiramisu</th><td>4,395</td><td>1,265</td><td><strong>5,660</strong></td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>164,614</td><td>55,452</td><td><strong>220,066</strong></td></tr></tfoot></table></div>
+      <details class="disclosure"><summary>Full counts by category, class, and split</summary><div class="disclosure-body"><div class="table-scroll" role="region" aria-label="Per-category image counts" tabindex="0"><table><caption>Per-category image counts for each of the five classes and both splits.</caption><thead><tr><th rowspan="2" scope="col">Food category</th><th colspan="2" scope="colgroup">Auth</th><th colspan="2" scope="colgroup">Auth-Def</th><th colspan="2" scope="colgroup">Gen</th><th colspan="2" scope="colgroup">Gen-Def</th><th colspan="2" scope="colgroup">Manip-Def</th></tr>
+<tr><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th></tr></thead><tbody><tr><th scope="row">Biryani</th><td>4,913</td><td>1,543</td><td>154</td><td>52</td><td>4,913</td><td>1,542</td><td>4,897</td><td>1,533</td><td>4,913</td><td>1,516</td></tr>
+<tr><th scope="row">Pizza</th><td>5,775</td><td>1,892</td><td>143</td><td>48</td><td>5,775</td><td>1,890</td><td>5,769</td><td>1,883</td><td>5,775</td><td>1,872</td></tr>
+<tr><th scope="row">Burger</th><td>988</td><td>310</td><td>66</td><td>22</td><td>988</td><td>308</td><td>979</td><td>307</td><td>988</td><td>302</td></tr>
+<tr><th scope="row">French Fries</th><td>1,014</td><td>308</td><td>68</td><td>23</td><td>1,014</td><td>305</td><td>1,008</td><td>305</td><td>1,014</td><td>302</td></tr>
+<tr><th scope="row">Fried Chicken</th><td>3,032</td><td>912</td><td>118</td><td>40</td><td>3,032</td><td>910</td><td>3,014</td><td>905</td><td>3,032</td><td>891</td></tr>
+<tr><th scope="row">Sandwich</th><td>8,354</td><td>2,327</td><td>46</td><td>15</td><td>8,354</td><td>2,325</td><td>8,325</td><td>2,319</td><td>8,354</td><td>2,287</td></tr>
+<tr><th scope="row">Noodles</th><td>2,307</td><td>721</td><td>76</td><td>26</td><td>2,307</td><td>721</td><td>2,303</td><td>719</td><td>2,307</td><td>706</td></tr>
+<tr><th scope="row">Sushi</th><td>2,951</td><td>2,242</td><td>72</td><td>24</td><td>2,951</td><td>2,226</td><td>2,949</td><td>2,216</td><td>2,951</td><td>2,190</td></tr>
+<tr><th scope="row">Dosa</th><td>5,094</td><td>1,700</td><td>21</td><td>7</td><td>5,094</td><td>1,698</td><td>5,062</td><td>1,688</td><td>5,094</td><td>1,678</td></tr>
+<tr><th scope="row">Dumplings</th><td>1,622</td><td>444</td><td>47</td><td>16</td><td>1,622</td><td>444</td><td>1,617</td><td>444</td><td>1,622</td><td>436</td></tr>
+<tr><th scope="row">Kebab</th><td>2,537</td><td>846</td><td>74</td><td>24</td><td>2,537</td><td>843</td><td>2,524</td><td>840</td><td>2,537</td><td>836</td></tr>
+<tr><th scope="row">Salad</th><td>1,269</td><td>312</td><td>58</td><td>19</td><td>1,269</td><td>312</td><td>1,261</td><td>311</td><td>1,269</td><td>304</td></tr>
+<tr><th scope="row">Tiramisu</th><td>1,083</td><td>312</td><td>63</td><td>22</td><td>1,083</td><td>312</td><td>1,083</td><td>312</td><td>1,083</td><td>307</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>40,939</td><td>13,869</td><td>1,006</td><td>338</td><td>40,939</td><td>13,836</td><td>40,791</td><td>13,782</td><td>40,939</td><td>13,627</td></tr></tfoot></table></div><p class="figure-note">Auth = authentic; Auth-Def = authentic-defective; Gen = generated; Gen-Def = generated-defective; Manip-Def = manipulated-defective. Small differences between matched classes arise from failed generations, safety-filter rejections, and exact-duplicate removal. Sushi’s larger test share follows the official Sushi-50 split.</p></div></details>
+
+    </section>
+
+    <section class="examples-section" id="examples" aria-labelledby="examples-title">
+      <div class="container">
+        <div class="section-heading"><h2 id="examples-title">Examples</h2></div><p class="section-intro">Matched quadruplets from the test split. From left to right: the authentic source photograph, a generated image from its structured description, a generated-defective image from the description merged with a defect instruction, and a manipulated-defective image obtained by applying the same instruction to the source photograph. Each caption gives the food category, generator, and a shortened defect instruction.</p>
+        <figure class="example-figure">
+          <a class="figure-link" href="assets/example-salad.webp" aria-label="View larger matched example"><img src="assets/example-salad.webp" width="2150" height="682" alt="Four matched salad images from FLUX.2-dev: an authentic photograph, a generated version, a generated defective version, and a locally manipulated defective photograph." decoding="async"></a>
+          <figcaption><strong>Salad, FLUX.2-dev.</strong> A squished dead ant partially hidden beneath a wet lettuce leaf.</figcaption>
+        </figure>
+        <figure class="example-figure">
+          <a class="figure-link" href="assets/example-fries.webp" aria-label="View larger matched example"><img src="assets/example-fries.webp" width="2150" height="682" alt="Four matched French fries images from FLUX.2-pro, ordered authentic, generated, generated defective, and manipulated defective." loading="lazy" decoding="async"></a>
+          <figcaption><strong>French fries, FLUX.2-pro.</strong> A tiny, dull metallic fleck on the oily surface of a fry.</figcaption>
+        </figure>
+        <details class="disclosure"><summary>More matched examples</summary><div class="disclosure-body"><figure class="example-figure ">
+          <a class="figure-link" href="assets/example-noodles.webp" aria-label="View larger: Noodles · FLUX.2-dev"><img src="assets/example-noodles.webp" width="2150" height="682" alt="Four matched noodle images ordered authentic, generated, generated-defective, and manipulated-defective, with a hair defect in the defective variants." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Noodles, FLUX.2-dev.</strong> A thin dark hair strand tucked between tangled noodles near the bowl’s edge.</figcaption>
+        </figure><figure class="example-figure ">
+          <a class="figure-link" href="assets/example-tiramisu.webp" aria-label="View larger: Tiramisu · FLUX.2-Klein-4B"><img src="assets/example-tiramisu.webp" width="2150" height="682" alt="Four matched tiramisu images ordered authentic, generated, generated-defective, and manipulated-defective, with a housefly defect." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Tiramisu, FLUX.2-Klein-4B.</strong> A tiny dead housefly plastered against the cream side of the dessert.</figcaption>
+        </figure><figure class="example-figure ">
+          <a class="figure-link" href="assets/example-chicken.webp" aria-label="View larger: Fried chicken · GPT-Image-1.5 (Medium)"><img src="assets/example-chicken.webp" width="2150" height="682" alt="Four matched fried chicken images ordered authentic, generated, generated-defective, and manipulated-defective, showing an undercooked interior in the defective variants." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Fried chicken, GPT-Image-1.5 (Medium).</strong> A cross-section revealing a translucent pink, glossy, undercooked interior beneath a cooked coating.</figcaption>
+        </figure><figure class="example-figure ">
+          <a class="figure-link" href="assets/example-biryani.webp" aria-label="View larger: Biryani · Gemini-2.5-Flash-Image"><img src="assets/example-biryani.webp" width="2150" height="682" alt="Four matched biryani images ordered authentic, generated, generated-defective, and manipulated-defective, with a synthetic fiber defect." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Biryani, Gemini-2.5-Flash-Image.</strong> A small synthetic fiber coated in masala, wedged between rice grains and meat.</figcaption>
+        </figure></div></details>
+        <details class="disclosure"><summary>Genuine food defects</summary><div class="disclosure-body"><figure class="example-figure portrait-figure">
+          <a class="figure-link" href="assets/authentic-defects.webp" aria-label="View larger: Authentic-defective photographs"><img src="assets/authentic-defects.webp" width="945" height="964" alt="Four genuine food-defect photographs: an insect in salad, mold on a burger bun, a hair on sushi, and a burnt pizza. Red circles mark localized defects." loading="lazy" decoding="async"></a>
+          <figcaption><strong>Authentic-defective examples.</strong> Genuine defects photographed by customers: an insect in a salad, mold on a burger bun, a hair on sushi, and a burnt pizza. Red circles mark localized defects.</figcaption>
+        </figure><p class="figure-note">These photographs form the separate Auth-Def class: 1,344 images, approximately 0.6% of FoodClaim.</p></div></details>
+        <p class="figure-note">Images reproduced from the FoodClaim paper. Authentic-defective photographs form a separate fifth class.</p>
+      </div>
+    </section>
+
+    <section class="section container" id="generators" aria-labelledby="generators-title">
+      <h2 id="generators-title">Image Generators</h2>
+      <p>Generated and manipulated images are produced using 12 generator configurations from the FLUX, GPT-Image, Gemini, and Qwen families. Training uses five FLUX configurations: FLUX.1-schnell, FLUX.1-dev, FLUX.2-dev, FLUX.2-Klein-9B, and FLUX.2-Klein-4B. FLUX.1-Kontext-dev provides editing for the two FLUX.1 text-to-image models.</p>
+      <p>Seven configurations are held out for testing: FLUX.2-pro, GPT-Image-1.5 (Medium), GPT-Image-2 (Medium and Low), Gemini-2.5-Flash-Image, Gemini-3.1-Flash-Image, and Qwen-Image-2512 with Qwen-Image-Edit-2511. These account for approximately 70% of generated and manipulated test images.</p>
+      <div class="table-scroll" role="region" aria-label="Per-generator image counts" tabindex="0"><table><caption>Per-generator image counts for the three synthetic classes and both splits.</caption><thead><tr><th rowspan="2" scope="col">Generator / editor</th><th colspan="2" scope="colgroup">Gen</th><th colspan="2" scope="colgroup">Gen-Def</th><th colspan="2" scope="colgroup">Manip-Def</th></tr>
+<tr><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th><th scope="col">Train</th><th scope="col">Test</th></tr></thead><tbody><tr class="table-group"><th colspan="7" scope="rowgroup">In-distribution configurations</th></tr>
+<tr><th scope="row">FLUX.1-Kontext-dev</th><td><span aria-label="Not applicable">–</span></td><td><span aria-label="Not applicable">–</span></td><td><span aria-label="Not applicable">–</span></td><td><span aria-label="Not applicable">–</span></td><td>8,196</td><td>1,689</td></tr>
+<tr><th scope="row">FLUX.1-schnell</th><td>4,103</td><td>848</td><td>4,103</td><td>847</td><td><span aria-label="Not applicable">–</span></td><td><span aria-label="Not applicable">–</span></td></tr>
+<tr><th scope="row">FLUX.1-dev</th><td>4,093</td><td>840</td><td>4,093</td><td>839</td><td><span aria-label="Not applicable">–</span></td><td><span aria-label="Not applicable">–</span></td></tr>
+<tr><th scope="row">FLUX.2-dev</th><td>16,368</td><td>813</td><td>16,220</td><td>805</td><td>16,368</td><td>813</td></tr>
+<tr><th scope="row">FLUX.2-Klein-9B</th><td>8,188</td><td>819</td><td>8,188</td><td>810</td><td>8,188</td><td>819</td></tr>
+<tr><th scope="row">FLUX.2-Klein-4B</th><td>8,187</td><td>831</td><td>8,187</td><td>826</td><td>8,187</td><td>832</td></tr>
+<tr class="table-group"><th colspan="7" scope="rowgroup">Held-out configurations · test split only</th></tr>
+<tr><th scope="row">FLUX.2-pro</th><td><span aria-label="Not applicable">–</span></td><td>1,408</td><td><span aria-label="Not applicable">–</span></td><td>1,407</td><td><span aria-label="Not applicable">–</span></td><td>1,411</td></tr>
+<tr><th scope="row">GPT-Image-1.5 (Medium)</th><td><span aria-label="Not applicable">–</span></td><td>1,392</td><td><span aria-label="Not applicable">–</span></td><td>1,391</td><td><span aria-label="Not applicable">–</span></td><td>1,396</td></tr>
+<tr><th scope="row">GPT-Image-2 (Medium)</th><td><span aria-label="Not applicable">–</span></td><td>1,395</td><td><span aria-label="Not applicable">–</span></td><td>1,395</td><td><span aria-label="Not applicable">–</span></td><td>1,393</td></tr>
+<tr><th scope="row">GPT-Image-2 (Low)</th><td><span aria-label="Not applicable">–</span></td><td>1,388</td><td><span aria-label="Not applicable">–</span></td><td>1,387</td><td><span aria-label="Not applicable">–</span></td><td>1,387</td></tr>
+<tr><th scope="row">Gemini-2.5-Flash-Image</th><td><span aria-label="Not applicable">–</span></td><td>1,367</td><td><span aria-label="Not applicable">–</span></td><td>1,352</td><td><span aria-label="Not applicable">–</span></td><td>1,349</td></tr>
+<tr><th scope="row">Gemini-3.1-Flash-Image</th><td><span aria-label="Not applicable">–</span></td><td>1,356</td><td><span aria-label="Not applicable">–</span></td><td>1,349</td><td><span aria-label="Not applicable">–</span></td><td>1,156</td></tr>
+<tr><th scope="row">Qwen-Image-2512 / Qwen-Image-Edit-2511</th><td><span aria-label="Not applicable">–</span></td><td>1,379</td><td><span aria-label="Not applicable">–</span></td><td>1,374</td><td><span aria-label="Not applicable">–</span></td><td>1,382</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>40,939</td><td>13,836</td><td>40,791</td><td>13,782</td><td>40,939</td><td>13,627</td></tr></tfoot></table></div><p class="figure-note">FLUX.1-Kontext-dev edits the FLUX.1 allocations; Qwen-Image-Edit-2511 edits the Qwen-Image-2512 allocations. The lower Gemini-3.1 Manip-Def count reflects content-safety rejections. Dashes indicate no allocation.</p>
+    </section>
+
+    <section class="section container" id="baselines" aria-labelledby="baselines-title">
+      <h2 id="baselines-title">Baselines</h2>
+      <p>The benchmark evaluates 14 pretrained backbones from the ResNet, MobileNetV3, ConvNeXt, ViT, and DINOv3 families. UnivFD is adapted from binary detection to five-way classification by training a linear head on frozen CLIP features. The following results use RGB input.</p>
+      <div class="table-scroll" role="region" aria-label="Five-way classification on the FoodClaim test split with RGB input. Accuracy (Acc.) and weighted F1 (W-F1) are reported overall, in-distribution (ID), and out-of-distribution (OOD)." tabindex="0"><table class="baseline-table"><caption>Five-way classification on the FoodClaim test split with RGB input. Accuracy (Acc.) and weighted F1 (W-F1) are reported overall, in-distribution (ID), and out-of-distribution (OOD).</caption><thead><tr><th rowspan="2" scope="col">Backbone</th><th rowspan="2" scope="col">Params</th><th colspan="2" scope="colgroup">Overall</th><th colspan="2" scope="colgroup">ID</th><th colspan="2" scope="colgroup">OOD</th></tr><tr><th scope="col">Acc.</th><th scope="col">W-F1</th><th scope="col">Acc.</th><th scope="col">W-F1</th><th scope="col">Acc.</th><th scope="col">W-F1</th></tr></thead><tbody><tr class="table-group"><th colspan="8" scope="rowgroup">Fine-tuned backbones</th></tr>
+<tr><th scope="row">ResNet-18</th><td>11.18M</td><td>0.63</td><td>0.62</td><td>0.81</td><td>0.80</td><td>0.47</td><td>0.55</td></tr>
+<tr><th scope="row">ResNet-34</th><td>21.29M</td><td>0.64</td><td>0.63</td><td>0.82</td><td>0.82</td><td>0.46</td><td>0.54</td></tr>
+<tr><th scope="row">ResNet-50</th><td>23.52M</td><td>0.65</td><td>0.65</td><td>0.84</td><td>0.84</td><td>0.48</td><td>0.56</td></tr>
+<tr><th scope="row">MobileNetV3-Small</th><td>1.52M</td><td>0.63</td><td>0.62</td><td>0.77</td><td>0.77</td><td>0.50</td><td>0.56</td></tr>
+<tr><th scope="row">MobileNetV3-Large</th><td>4.21M</td><td>0.67</td><td>0.66</td><td>0.84</td><td>0.84</td><td>0.51</td><td>0.59</td></tr>
+<tr><th scope="row">ConvNeXt-Tiny</th><td>27.82M</td><td>0.71</td><td>0.70</td><td>0.90</td><td>0.90</td><td>0.53</td><td>0.62</td></tr>
+<tr><th scope="row">ConvNeXt-Small</th><td>49.46M</td><td>0.69</td><td>0.69</td><td>0.90</td><td>0.90</td><td>0.50</td><td>0.61</td></tr>
+<tr><th scope="row">ConvNeXt-Base</th><td>87.57M</td><td>0.72</td><td>0.72</td><td>0.91</td><td>0.90</td><td>0.55</td><td>0.64</td></tr>
+<tr><th scope="row">ViT-Small</th><td>21.67M</td><td>0.71</td><td>0.71</td><td>0.88</td><td>0.88</td><td>0.56</td><td>0.65</td></tr>
+<tr><th scope="row">ViT-Base</th><td>85.80M</td><td>0.74</td><td>0.74</td><td>0.89</td><td>0.89</td><td>0.61</td><td>0.68</td></tr>
+<tr><th scope="row">ViT-Large</th><td>303.31M</td><td>0.74</td><td>0.74</td><td>0.90</td><td>0.90</td><td>0.60</td><td>0.68</td></tr>
+<tr><th scope="row">DINOv3-Small</th><td>21.59M</td><td>0.71</td><td>0.70</td><td>0.88</td><td>0.88</td><td>0.55</td><td>0.62</td></tr>
+<tr><th scope="row">DINOv3-Small+</th><td>28.69M</td><td>0.73</td><td>0.72</td><td>0.90</td><td>0.90</td><td>0.57</td><td>0.64</td></tr>
+<tr><th scope="row">DINOv3-Base</th><td>85.65M</td><td>0.72</td><td>0.71</td><td>0.91</td><td>0.91</td><td>0.54</td><td>0.61</td></tr>
+<tr class="table-group"><th colspan="8" scope="rowgroup">Synthetic image detection baseline</th></tr>
+<tr><th scope="row">UnivFD ViT-B/32</th><td>151.28M*</td><td>0.59</td><td>0.59</td><td>0.69</td><td>0.70</td><td>0.50</td><td>0.56</td></tr>
+<tr><th scope="row">UnivFD ViT-B/16</th><td>149.62M*</td><td>0.60</td><td>0.60</td><td>0.71</td><td>0.72</td><td>0.51</td><td>0.57</td></tr>
+<tr><th scope="row">UnivFD ViT-L/14</th><td>427.62M*</td><td>0.64</td><td>0.64</td><td>0.78</td><td>0.78</td><td>0.52</td><td>0.60</td></tr>
+</tbody></table></div>
+      <p class="figure-note">ID and OOD refer to the test subsets with seen and held-out generators. Values follow the paper’s RGB results table. *UnivFD parameter counts include the frozen CLIP encoder; only the linear head is trained (2,565 parameters for ViT-B/32 and ViT-B/16, and 3,845 for ViT-L/14).</p>
+      <details class="disclosure"><summary>Per-class F1 scores</summary><div class="disclosure-body"><div class="table-scroll" role="region" aria-label="Per-class F1 on the complete test split with RGB input." tabindex="0"><table class="baseline-table"><caption>Per-class F1 on the complete test split with RGB input.</caption><thead><tr><th scope="col">Backbone</th><th scope="col">Auth</th><th scope="col">Auth-Def</th><th scope="col">Gen</th><th scope="col">Gen-Def</th><th scope="col">Manip-Def</th></tr></thead><tbody><tr class="table-group"><th colspan="6" scope="rowgroup">Fine-tuned backbones</th></tr>
+<tr><th scope="row">ResNet-18</th><td>0.70</td><td>0.61</td><td>0.61</td><td>0.55</td><td>0.63</td></tr>
+<tr><th scope="row">ResNet-34</th><td>0.70</td><td>0.56</td><td>0.63</td><td>0.54</td><td>0.64</td></tr>
+<tr><th scope="row">ResNet-50</th><td>0.72</td><td>0.63</td><td>0.64</td><td>0.56</td><td>0.66</td></tr>
+<tr><th scope="row">MobileNetV3-Small</th><td>0.71</td><td>0.46</td><td>0.62</td><td>0.54</td><td>0.62</td></tr>
+<tr><th scope="row">MobileNetV3-Large</th><td>0.73</td><td>0.62</td><td>0.65</td><td>0.59</td><td>0.67</td></tr>
+<tr><th scope="row">ConvNeXt-Tiny</th><td>0.75</td><td>0.72</td><td>0.69</td><td>0.62</td><td>0.75</td></tr>
+<tr><th scope="row">ConvNeXt-Small</th><td>0.70</td><td>0.66</td><td>0.68</td><td>0.64</td><td>0.73</td></tr>
+<tr><th scope="row">ConvNeXt-Base</th><td>0.75</td><td>0.72</td><td>0.70</td><td>0.66</td><td>0.76</td></tr>
+<tr><th scope="row">ViT-Small</th><td>0.76</td><td>0.74</td><td>0.70</td><td>0.65</td><td>0.73</td></tr>
+<tr><th scope="row">ViT-Base</th><td>0.79</td><td>0.75</td><td>0.72</td><td>0.67</td><td>0.76</td></tr>
+<tr><th scope="row">ViT-Large</th><td>0.78</td><td>0.82</td><td>0.74</td><td>0.69</td><td>0.76</td></tr>
+<tr><th scope="row">DINOv3-Small</th><td>0.78</td><td>0.48</td><td>0.70</td><td>0.62</td><td>0.71</td></tr>
+<tr><th scope="row">DINOv3-Small+</th><td>0.78</td><td>0.73</td><td>0.72</td><td>0.64</td><td>0.72</td></tr>
+<tr><th scope="row">DINOv3-Base</th><td>0.77</td><td>0.69</td><td>0.71</td><td>0.62</td><td>0.74</td></tr>
+<tr class="table-group"><th colspan="6" scope="rowgroup">Synthetic image detection baseline</th></tr>
+<tr><th scope="row">UnivFD ViT-B/32</th><td>0.67</td><td>0.51</td><td>0.58</td><td>0.52</td><td>0.58</td></tr>
+<tr><th scope="row">UnivFD ViT-B/16</th><td>0.67</td><td>0.51</td><td>0.58</td><td>0.55</td><td>0.61</td></tr>
+<tr><th scope="row">UnivFD ViT-L/14</th><td>0.70</td><td>0.70</td><td>0.63</td><td>0.58</td><td>0.65</td></tr>
+</tbody></table></div></div></details>
+    </section>
+
+    <section class="citation-section container" id="citation" aria-labelledby="citation-title">
+      <div class="section-heading"><h2 id="citation-title">Citation</h2><button id="copy-citation" type="button" hidden>Copy BibTeX</button></div>
+      <pre><code id="bibtex">@inproceedings{javed2027foodclaim,
+  title     = {FoodClaim: A Benchmark for Detecting Generated
+               and Manipulated Food Defects},
+  author    = {Javed, Ahmad and Wasim, Syed Talal and
+               Suleman, Hamid and Gall, Juergen},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference
+               on Applications of Computer Vision (WACV)},
+  year      = {2027}
+}</code></pre>
+      <p class="citation-note">Preliminary citation; publication details will be updated when available.</p>
+      <p class="copy-status" id="copy-status" role="status"></p>
+    </section>
+  </main>
+
+  <footer class="container footer"><a class="wordmark" href="#">FoodClaim</a><p>University of Bonn · WACV 2027</p><a href="#paper-title">Back to top ↑</a></footer>
+</body>
+</html>
