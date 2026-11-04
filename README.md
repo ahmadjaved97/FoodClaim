@@ -26,6 +26,11 @@ The code for FLUX.2-dev image generation and manipulation is available in the [f
 
 1. [open_router_image_generation.py](image_generation/open_router_scripts/open_router_image_generation.py): Generates or edits food images from CSV prompts through OpenRouter, with generation, editing, and automatic mode selection.
 
+## Gemini scripts
+
+1. [gemini_batch_image_generation.py](image_generation/gemini_scripts/gemini_batch_image_generation.py): Generates food images from CSV descriptions using the Gemini Batch API, with submit, poll, and download modes.
+2. [gemini_batch_image_manipulation.py](image_generation/gemini_scripts/gemini_batch_image_manipulation.py): Edits source food images using CSV manipulation instructions through the Gemini Batch API, with submit, poll, and download modes.
+
 ## Survey manipulation list
 
 1. [manipulation_list.json](survey_manipulation_list/manipulation_list.json): Contains survey manipulation instructions grouped by food type and manipulation category. These instructions were later modified to create the manipulation instructions used for image editing.
