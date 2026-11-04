@@ -8,7 +8,7 @@ Sample commands:
         --model Qwen/Qwen3-VL-7B-Thinking \
         --model_family qwen3vl \
         --prompt_file prompts/detailed.json \
-        --folder /ssd1/ajaved/thesis/food_detection/sample_data \
+        --folder ./thesis/food_detection/sample_data \
         --output food_descriptions.csv
 
     # CSV mode: only rows where is_human is NOT YES are processed.
@@ -18,7 +18,7 @@ Sample commands:
         --model_family qwen3vl \
         --prompt_file prompts/detailed.json \
         --input_csv input.csv \
-        --image_root /ssd1/ajaved/thesis/food_detection \
+        --image_root ./thesis/food_detection \
         --output food_descriptions.csv \
         --save_every 100
 
@@ -27,7 +27,7 @@ Sample commands:
         --model Qwen/Qwen3.5-VL-7B-Instruct \
         --model_family qwen3_5 \
         --prompt_file prompts/minimal.json \
-        --folder /ssd1/ajaved/thesis/food_detection/sample_data \
+        --folder ./thesis/food_detection/sample_data \
         --output food_descriptions.csv
 
     # Increase max_new_tokens if you still see truncation:
