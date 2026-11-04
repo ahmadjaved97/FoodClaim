@@ -64,8 +64,8 @@ except ImportError as exc:  # pragma: no cover - environment dependent
 
 # ----------------------------- Defaults -------------------------------------
 
-DEFAULT_QWEN_MODEL = "/leonardo_work/EUHPC_R05_218/ajaved01/models/Qwen3.5-27B"
-DEFAULT_FLUX_MODEL = "/leonardo_work/EUHPC_R05_218/ajaved01/models/FLUX.1-dev"
+DEFAULT_QWEN_MODEL = "./models/Qwen3.5-27B"
+DEFAULT_FLUX_MODEL = "./models/FLUX.1-dev"
 
 DEFAULT_DESCRIPTION_COL = "description"
 DEFAULT_OUTPUT_COL = "summarized_description"
