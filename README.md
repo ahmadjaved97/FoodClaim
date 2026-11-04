@@ -1,4 +1,28 @@
-This repository contains code used for the FoodClaim Dataset.
+<h1 align="center">FoodClaim: A Benchmark for Detecting Generated and Manipulated Food Defects</h1>
+
+<p align="center"><strong>Accepted at WACV 2027 · Datasets Track</strong></p>
+
+<p align="center">
+  <a href="https://ahmadjaved97.github.io/">Ahmad Javed</a><sup>1</sup>,
+  <a href="https://talalwasim.github.io/">Syed Talal Wasim</a><sup>1,2</sup>,
+  <a href="https://scholar.google.com/citations?user=-BhbqVcAAAAJ">Hamid Suleman</a><sup>1,2</sup>,
+  and <a href="https://pages.iai.uni-bonn.de/gall_juergen/">Juergen Gall</a><sup>1,2</sup>
+</p>
+
+<p align="center">
+  <sup>1</sup> University of Bonn<br>
+  <sup>2</sup> Lamarr Institute for Machine Learning and Artificial Intelligence
+</p>
+
+<p align="center">
+  <a href="https://huggingface.co/datasets/ahmadjaved97/FoodClaim">Dataset on Hugging Face</a>
+</p>
+
+FoodClaim is a benchmark for detecting generated and manipulated food defects, motivated by fabricated photographic evidence in food delivery refund claims. It contains **220,066 images across 13 food categories**, with five classes: **authentic**, **authentic-defective**, **generated**, **generated-defective**, and **manipulated-defective**. These classes distinguish image authenticity from whether the depicted food is defective.
+
+Generated and manipulated variants are linked to authentic source photographs through shared descriptions, defect instructions, and generator families. The benchmark uses a plausibility-rated taxonomy of **78 food-defect combinations** and **12 generator configurations**, seven of which are held out from training to evaluate generalization to unseen generators.
+
+This repository provides the scripts and prompts used to construct FoodClaim, including image description generation, manipulation instruction preparation, image generation, and image editing. Model training code is linked under [Related repositories](#related-repositories).
 
 ## Qwen scripts
 
@@ -21,6 +45,7 @@ The code for FLUX.2-dev image generation and manipulation is available in the [f
 ## Qwen image scripts
 
 1. [qwen_image_edit_manipulation.py](image_generation/qwen_image_scripts/qwen_image_edit_manipulation.py): Edits source food images using Qwen-Image-Edit-2511 and manipulation instructions from a CSV.
+2. [qwen_image_2512_generate_from_csv.py](image_generation/qwen_image_scripts/qwen_image_2512_generate_from_csv.py): Generates food images from CSV descriptions using Qwen-Image-2512, with resumable runs and optional multi-GPU processing.
 
 ## OpenRouter scripts
 
